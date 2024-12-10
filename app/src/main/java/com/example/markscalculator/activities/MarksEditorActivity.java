@@ -111,7 +111,7 @@ public class MarksEditorActivity extends AppCompatActivity {
         calculateButton.setOnClickListener(v -> calculateMarks());
         previousButton.setOnClickListener(v -> navigateToStudent(currentRow - 1));
         nextButton.setOnClickListener(v -> navigateToStudent(currentRow + 1));
-        submitButton.setOnClickListener(v -> saveChangesAndExit());
+        submitButton.setOnClickListener(v -> saveChangesAndContinue());
     }
 
     private void loadCurrentStudent() {
@@ -195,7 +195,7 @@ public class MarksEditorActivity extends AppCompatActivity {
         nextButton.setEnabled(excelHandler.hasNextStudent(currentRow));
     }
 
-    private void saveChangesAndExit() {
+    private void saveChangesAndContinue() {
         showLoading(true);
         executor.execute(() -> {
             try {
@@ -209,6 +209,7 @@ public class MarksEditorActivity extends AppCompatActivity {
                 mainHandler.post(() -> {
                     showLoading(false);
                     hasUnsavedChanges = false;
+                    showSaveSuccessDialog();
                 });
             } catch (Exception e) {
                 mainHandler.post(() -> {
@@ -218,14 +219,35 @@ public class MarksEditorActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void showSaveSuccessDialog() {
+        if (excelHandler.hasNextStudent(currentRow)) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Success")
+                    .setMessage("Changes saved successfully!")
+                    .setPositiveButton("Next Student", (dialog, which) -> {
+                        navigateToStudent(currentRow + 1);
+                    })
+                    .setNegativeButton("Stay Here", null)
+                    .setCancelable(false)
+                    .show();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("Success")
+                    .setMessage("Changes saved successfully! This is the last student.")
+                    .setPositiveButton("OK", null)
+                    .setCancelable(false)
+                    .show();
+        }
+    }
+
     private void showSaveChangesDialog(Runnable onConfirm) {
         new AlertDialog.Builder(this)
                 .setTitle("Unsaved Changes")
                 .setMessage("Do you want to save your changes?")
                 .setPositiveButton("Save", (dialog, which) -> {
-                    saveChangesAndExit();
+                    saveChangesAndContinue();
                     onConfirm.run();
-                    navigateToStudent(currentRow + 1);
                 })
                 .setNegativeButton("Discard", (dialog, which) -> {
                     hasUnsavedChanges = false;
