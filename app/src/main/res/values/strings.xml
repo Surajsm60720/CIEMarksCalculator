@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Marks Calculator</string>
+    <string name="select_file">Select Excel File</string>
+        <string name="name_format">Name: %1$s</string>
+        <string name="usn_format">USN: %1$s</string>
+        <string name="total_format">Total: %1$.2f</string>
+        <string name="average_format">Average: %1$.2f</string>
+    <string name="select_excel_file">Select Excel File</string>
+    <string name="no_file_selected">No File Selected</string>
+    <string name="select_excel_hint">Please select an Excel file containing student marks</string>
+    <string name="excel_icon_description">Excel file icon</string>
+    <string name="recent_files">Recent Files</string>
+    <string name="previous">Previous</string>
+    <string name="calculate">Calculate</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit</string>
+    <string name="exam1_hint">Exam 1 Marks</string>
+    <string name="exam2_hint">Exam 2 Marks</string>
+    <string name="exam3_hint">Exam 3 Marks</string>
+</resources>
