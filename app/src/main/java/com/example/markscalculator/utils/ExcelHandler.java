@@ -134,7 +134,7 @@ public class ExcelHandler {
             updateCell(row, 5, total);
 
             // Calculate and update average (out of 30)
-            double average = total / 50;
+            double average = (total / 50)*10;
             updateCell(row, 6, average);
 
             Log.d(TAG, "Marks updated successfully for row " + rowIndex);
@@ -169,58 +169,12 @@ public class ExcelHandler {
         }
     }
 
-    public void exportToCSV(Uri csvFileUri) {
-        try {
-            ParcelFileDescriptor pfd = context.getContentResolver()
-                    .openFileDescriptor(csvFileUri, "w");
-            if (pfd != null) {
-                FileOutputStream fos = new FileOutputStream(pfd.getFileDescriptor());
-                StringBuilder csvContent = new StringBuilder();
-
-                // Write header
-                Row headerRow = sheet.getRow(0);
-                if (headerRow != null) {
-                    csvContent.append(createCSVRow(headerRow));
-                }
-
-                // Write data rows
-                for (int i = 1; i <= totalRows; i++) {
-                    Row row = sheet.getRow(i);
-                    if (row != null) {
-                        csvContent.append(createCSVRow(row));
-                    }
-                }
-
-                fos.write(csvContent.toString().getBytes());
-                fos.close();
-                pfd.close();
-                Log.d(TAG, "CSV export completed successfully");
-            }
-        } catch (IOException e) {
-            Log.e(TAG, "Error exporting to CSV: " + e.getMessage());
-            throw new RuntimeException("Failed to export to CSV", e);
-        }
-    }
-
-    private String createCSVRow(Row row) {
-        List<String> values = new ArrayList<>();
-        for (int i = 0; i < 7; i++) { // Assuming 7 columns
-            Cell cell = row.getCell(i);
-            values.add(getCellValueAsString(cell));
-        }
-        return String.join(",", values) + "\n";
-    }
-
     public boolean hasNextStudent(int currentRow) {
         return currentRow < totalRows;
     }
 
     public boolean hasPreviousStudent(int currentRow) {
         return currentRow > 1;
-    }
-
-    public int getTotalRows() {
-        return totalRows;
     }
 
     public void close() {
