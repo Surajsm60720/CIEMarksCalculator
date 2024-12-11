@@ -33,7 +33,6 @@ public class MarksEditorActivity extends AppCompatActivity {
     private TextView averageTextView;
     private Button calculateButton;
     private Button previousButton;
-    private Button nextButton;
     private Button submitButton;
     private ProgressBar progressBar;
 
@@ -51,7 +50,6 @@ public class MarksEditorActivity extends AppCompatActivity {
         initializeViews();
         setupExcelHandler();
         setupListeners();
-        loadCurrentStudent();
     }
 
     private void initializeViews() {
@@ -64,7 +62,6 @@ public class MarksEditorActivity extends AppCompatActivity {
         averageTextView = findViewById(R.id.averageTextView);
         calculateButton = findViewById(R.id.calculateButton);
         previousButton = findViewById(R.id.previousButton);
-        nextButton = findViewById(R.id.nextButton);
         submitButton = findViewById(R.id.submitButton);
         progressBar = findViewById(R.id.progressBar);
     }
@@ -110,7 +107,6 @@ public class MarksEditorActivity extends AppCompatActivity {
 
         calculateButton.setOnClickListener(v -> calculateMarks());
         previousButton.setOnClickListener(v -> navigateToStudent(currentRow - 1));
-        nextButton.setOnClickListener(v -> navigateToStudent(currentRow + 1));
         submitButton.setOnClickListener(v -> saveChangesAndContinue());
     }
 
@@ -192,7 +188,7 @@ public class MarksEditorActivity extends AppCompatActivity {
 
     private void updateNavigationButtons() {
         previousButton.setEnabled(excelHandler.hasPreviousStudent(currentRow));
-        nextButton.setEnabled(excelHandler.hasNextStudent(currentRow));
+        submitButton.setEnabled(excelHandler.hasNextStudent(currentRow));
     }
 
     private void saveChangesAndContinue() {
@@ -269,7 +265,6 @@ public class MarksEditorActivity extends AppCompatActivity {
         exam3EditText.setEnabled(!show);
         calculateButton.setEnabled(!show);
         previousButton.setEnabled(!show);
-        nextButton.setEnabled(!show);
         submitButton.setEnabled(!show);
     }
 

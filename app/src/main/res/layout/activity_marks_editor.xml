@@ -1,7 +1,6 @@
-
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -101,8 +100,8 @@
         android:id="@+id/buttonLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:columnCount="1"
         android:padding="8dp"
-        android:columnCount="2"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
@@ -111,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:text="@string/calculate"
-            android:layout_marginEnd="4dp"/>
+            android:layout_marginBottom="4dp"/>
 
         <Button
             android:id="@+id/previousButton"
@@ -119,15 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:text="@string/previous"
-            android:layout_marginEnd="4dp"/>
-
-        <Button
-            android:id="@+id/nextButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:text="@string/next"
-            android:layout_marginEnd="4dp"/>
+            android:layout_marginBottom="4dp"/>
 
         <Button
             android:id="@+id/submitButton"
