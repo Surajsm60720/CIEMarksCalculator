@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
+    <color name="textColorPrimary">#000000</color> <!-- Black for light mode -->
+    <color name="textColorSecondary">#757575</color> <!-- Grey for light mode -->
+    <color name="buttonTextColor">#000000</color> <!-- Black for light mode -->
+    <color name="buttonBackgroundColor">#FFBB86FC</color> <!-- Purple for light mode -->
 </resources>

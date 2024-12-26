@@ -1,6 +1,5 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -23,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:padding="8dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray"
+                android:textColor="@color/textColorPrimary"/>
 
             <TextView
                 android:id="@+id/usnTextView"
@@ -32,7 +32,8 @@
                 android:textSize="16sp"
                 android:padding="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray"
+                android:textColor="@color/textColorPrimary"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -44,7 +45,8 @@
                     android:id="@+id/exam1EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/textColorPrimary"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,7 +60,8 @@
                     android:id="@+id/exam2EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/textColorPrimary"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,7 +75,8 @@
                     android:id="@+id/exam3EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/textColorPrimary"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -82,7 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="@color/textColorSecondary"/>
 
             <TextView
                 android:id="@+id/averageTextView"
@@ -90,7 +95,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="@color/textColorSecondary"/>
 
         </LinearLayout>
 
@@ -110,7 +116,8 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:text="@string/calculate"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/textColorPrimary"/>
 
         <Button
             android:id="@+id/previousButton"
@@ -118,14 +125,16 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:text="@string/previous"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/textColorPrimary"/>
 
         <Button
             android:id="@+id/submitButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:text="@string/submit"/>
+            android:text="@string/submit"
+            android:textColor="@color/textColorPrimary"/>
 
     </GridLayout>
 

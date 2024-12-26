@@ -215,28 +215,30 @@ public class MarksEditorActivity extends AppCompatActivity {
             }
         });
     }
-
     private void showSaveSuccessDialog() {
         if (excelHandler.hasNextStudent(currentRow)) {
-            new AlertDialog.Builder(this)
+            AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle("Success")
                     .setMessage("Changes saved successfully!")
-                    .setPositiveButton("Next Student", (dialog, which) -> {
+                    .setPositiveButton("Next Student", (dialogInterface, which) -> {
                         navigateToStudent(currentRow + 1);
                     })
                     .setNegativeButton("Stay Here", null)
                     .setCancelable(false)
                     .show();
+
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.buttonTextColor));
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.buttonTextColor));
         } else {
-            new AlertDialog.Builder(this)
+            AlertDialog alertDialog = new AlertDialog.Builder(this)
                     .setTitle("Success")
                     .setMessage("Changes saved successfully! This is the last student.")
                     .setPositiveButton("OK", null)
                     .setCancelable(false)
                     .show();
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.buttonTextColor));
         }
     }
-
     private void showSaveChangesDialog(Runnable onConfirm) {
         new AlertDialog.Builder(this)
                 .setTitle("Unsaved Changes")
