@@ -66,8 +66,9 @@ public class ExcelHandler {
                 double exam1 = getCellValueAsDouble(row.getCell(2));
                 double exam2 = getCellValueAsDouble(row.getCell(3));
                 double exam3 = getCellValueAsDouble(row.getCell(4));
+                double aat = getCellValueAsDouble(row.getCell(5));
 
-                return new StudentData(name, usn, exam1, exam2, exam3);
+                return new StudentData(name, usn, exam1, exam2, exam3, aat);
             }
         } catch (Exception e) {
             Log.e(TAG, "Error reading student data at row " + rowIndex + ": " + e.getMessage());
@@ -111,7 +112,7 @@ public class ExcelHandler {
         }
     }
 
-    public void updateMarks(int rowIndex, double exam1, double exam2, double exam3) {
+    public void updateMarks(int rowIndex, double exam1, double exam2, double exam3, double aat) {
         try {
             if (rowIndex < 1 || rowIndex > totalRows) {
                 Log.e(TAG, "Invalid row index for update: " + rowIndex);
@@ -128,14 +129,19 @@ public class ExcelHandler {
             updateCell(row, 2, exam1);
             updateCell(row, 3, exam2);
             updateCell(row, 4, exam3);
+            updateCell(row, 5, aat);
 
             // Calculate and update total
             double total = exam1 + exam2 + exam3;
-            updateCell(row, 5, total);
+            updateCell(row, 6, total);
 
             // Calculate and update average (out of 30)
             double average = (total / 50)*10;
-            updateCell(row, 6, average);
+            updateCell(row, 7, average);
+
+            // Calculate and update final marks
+            double finalMarks = average + aat;
+            updateCell(row, 8, finalMarks);
 
             Log.d(TAG, "Marks updated successfully for row " + rowIndex);
         } catch (Exception e) {

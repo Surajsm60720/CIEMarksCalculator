@@ -29,8 +29,10 @@ public class MarksEditorActivity extends AppCompatActivity {
     private EditText exam1EditText;
     private EditText exam2EditText;
     private EditText exam3EditText;
+    private EditText aatEditText;
     private TextView totalTextView;
     private TextView averageTextView;
+    private TextView finalMarksTextView;
     private Button calculateButton;
     private Button previousButton;
     private Button submitButton;
@@ -58,8 +60,10 @@ public class MarksEditorActivity extends AppCompatActivity {
         exam1EditText = findViewById(R.id.exam1EditText);
         exam2EditText = findViewById(R.id.exam2EditText);
         exam3EditText = findViewById(R.id.exam3EditText);
+        aatEditText = findViewById(R.id.aatEditText);
         totalTextView = findViewById(R.id.totalTextView);
         averageTextView = findViewById(R.id.averageTextView);
+        finalMarksTextView = findViewById(R.id.finalMarksTextView);
         calculateButton = findViewById(R.id.calculateButton);
         previousButton = findViewById(R.id.previousButton);
         submitButton = findViewById(R.id.submitButton);
@@ -104,6 +108,7 @@ public class MarksEditorActivity extends AppCompatActivity {
         exam1EditText.addTextChangedListener(markChangeWatcher);
         exam2EditText.addTextChangedListener(markChangeWatcher);
         exam3EditText.addTextChangedListener(markChangeWatcher);
+        aatEditText.addTextChangedListener(markChangeWatcher);
 
         calculateButton.setOnClickListener(v -> calculateMarks());
         previousButton.setOnClickListener(v -> navigateToStudent(currentRow - 1));
@@ -139,7 +144,8 @@ public class MarksEditorActivity extends AppCompatActivity {
         exam1EditText.setText(String.valueOf(student.getExam1()));
         exam2EditText.setText(String.valueOf(student.getExam2()));
         exam3EditText.setText(String.valueOf(student.getExam3()));
-        updateCalculations(student.getTotal(), student.getAverage());
+        aatEditText.setText(String.valueOf(student.getAat()));
+        updateCalculations(student.getTotal(), student.getAverage(), student.getAat());
     }
 
     private void calculateMarks() {
@@ -147,11 +153,12 @@ public class MarksEditorActivity extends AppCompatActivity {
             double exam1 = parseMarkInput(exam1EditText);
             double exam2 = parseMarkInput(exam2EditText);
             double exam3 = parseMarkInput(exam3EditText);
+            double aat = parseMarkInput(aatEditText);
 
             double total = exam1 + exam2 + exam3;
             double average = total / 5;
-
-            updateCalculations(total, average);
+            
+            updateCalculations(total, average, aat);
             hasUnsavedChanges = true;
         } catch (NumberFormatException e) {
             showError("Please enter valid marks");
@@ -169,9 +176,11 @@ public class MarksEditorActivity extends AppCompatActivity {
         return value;
     }
 
-    private void updateCalculations(double total, double average) {
+    private void updateCalculations(double total, double average, double aat) {
         totalTextView.setText(getString(R.string.total_format, total));
         averageTextView.setText(getString(R.string.average_format, average));
+        double finalMarks = average + aat;
+        finalMarksTextView.setText(getString(R.string.final_marks_format, finalMarks));
     }
 
     private void navigateToStudent(int newRow) {
@@ -198,8 +207,9 @@ public class MarksEditorActivity extends AppCompatActivity {
                 double exam1 = parseMarkInput(exam1EditText);
                 double exam2 = parseMarkInput(exam2EditText);
                 double exam3 = parseMarkInput(exam3EditText);
+                double aat = parseMarkInput(aatEditText);
 
-                excelHandler.updateMarks(currentRow, exam1, exam2, exam3);
+                excelHandler.updateMarks(currentRow, exam1, exam2, exam3, aat);
                 excelHandler.saveWorkbook();
 
                 mainHandler.post(() -> {
@@ -227,8 +237,8 @@ public class MarksEditorActivity extends AppCompatActivity {
                     .setCancelable(false)
                     .show();
 
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.buttonTextColor));
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.buttonTextColor));
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.textColor));
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.textColor));
         } else {
             AlertDialog alertDialog = new AlertDialog.Builder(this)
                     .setTitle("Success")
@@ -236,23 +246,27 @@ public class MarksEditorActivity extends AppCompatActivity {
                     .setPositiveButton("OK", null)
                     .setCancelable(false)
                     .show();
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.buttonTextColor));
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.textColor));
         }
     }
     private void showSaveChangesDialog(Runnable onConfirm) {
-        new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Unsaved Changes")
                 .setMessage("Do you want to save your changes?")
-                .setPositiveButton("Save", (dialog, which) -> {
+                .setPositiveButton("Save", (dialogInterface, which) -> {
                     saveChangesAndContinue();
                     onConfirm.run();
                 })
-                .setNegativeButton("Discard", (dialog, which) -> {
+                .setNegativeButton("Discard", (dialogInterface, which) -> {
                     hasUnsavedChanges = false;
                     onConfirm.run();
                 })
                 .setNeutralButton("Cancel", null)
                 .show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.textColor));
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.textColor));
+        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(getResources().getColor(R.color.textColor));
     }
 
     private void showError(String message) {
@@ -265,6 +279,7 @@ public class MarksEditorActivity extends AppCompatActivity {
         exam1EditText.setEnabled(!show);
         exam2EditText.setEnabled(!show);
         exam3EditText.setEnabled(!show);
+        aatEditText.setEnabled(!show);
         calculateButton.setEnabled(!show);
         previousButton.setEnabled(!show);
         submitButton.setEnabled(!show);

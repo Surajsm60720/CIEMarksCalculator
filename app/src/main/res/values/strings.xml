@@ -18,4 +18,6 @@
     <string name="exam1_hint">Exam 1 Marks</string>
     <string name="exam2_hint">Exam 2 Marks</string>
     <string name="exam3_hint">Exam 3 Marks</string>
+    <string name="final_marks_format">Final Marks: %.2f</string>
+    <string name="aat_hint">AAT Marks</string>
 </resources>

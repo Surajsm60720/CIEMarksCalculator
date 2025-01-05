@@ -80,6 +80,22 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="AAT Marks">
+
+                <EditText
+                    android:id="@+id/aatEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:textColor="@color/textColor"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <TextView
                 android:id="@+id/totalTextView"
                 android:layout_width="match_parent"
@@ -97,6 +113,14 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/textColorSecondary"/>
+
+            <TextView
+                android:id="@+id/finalMarksTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
